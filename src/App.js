@@ -25,6 +25,7 @@ function App() {
   const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
   const [mapZoom, setMapZoom] = useState(2);
   const [mapCountries, setMapCountries] = useState([]);
+  const [casesType, setCasesType] = useState("cases");
 
   // HOOKS && CONTEXTS
   useEffect(() => {
@@ -92,30 +93,43 @@ function App() {
 
         <div className="app__stats">
           <InfoBox
+            onClick={() => setCasesType("cases")}
+            active={casesType === "cases"}
+            isRed
             title="Coronavirus Cases"
             total={prettyPrintStat(countryInfo.cases)}
             cases={prettyPrintStat(countryInfo.todayCases)}
           />
           <InfoBox
+            onClick={() => setCasesType("recovered")}
+            active={casesType === "recovered"}
             title="Recovered"
             total={prettyPrintStat(countryInfo.recovered)}
             cases={prettyPrintStat(countryInfo.todayRecovered)}
           />
           <InfoBox
+            onClick={() => setCasesType("deaths")}
+            active={casesType === "deaths"}
+            isRed
             title="Deaths"
             total={prettyPrintStat(countryInfo.deaths)}
             cases={prettyPrintStat(countryInfo.todayDeaths)}
           />
         </div>
-        <Map zoom={mapZoom} center={mapCenter} countries={mapCountries} />
+        <Map
+          zoom={mapZoom}
+          center={mapCenter}
+          countries={mapCountries}
+          casesType={casesType}
+        />
       </div>
 
       <Card className="app__right">
         <CardContent>
           <h3>Live Cases by Country</h3>
           <Table countries={tableData} />
-          <h3>WorldWide New Cases</h3>
-          <Graph />
+          <h3 className="app__graphTitle">WorldWide New {casesType}</h3>
+          <Graph className="app__graph" casesType={casesType} />
         </CardContent>
       </Card>
     </div>
