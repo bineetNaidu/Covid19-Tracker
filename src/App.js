@@ -9,9 +9,10 @@ import {
 import InfoBox from "./InfoBox";
 import Map from "./Map";
 import Table from "./Table";
+import { sortData } from "./utils";
+import Graph from "./Graph";
 
 import "./App.css";
-import { sortData } from "./utils";
 
 function App() {
   // STATES
@@ -106,7 +107,7 @@ function App() {
           <h3>Live Cases by Country</h3>
           <Table countries={tableData} />
           <h3>WorldWide New Cases</h3>
-          {/* Graph */}
+          <Graph />
         </CardContent>
       </Card>
     </div>
