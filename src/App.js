@@ -12,7 +12,9 @@ import Table from "./Table";
 import { sortData } from "./utils";
 import Graph from "./Graph";
 
+// STATICS
 import "./App.css";
+import "leaflet/dist/leaflet.css";
 
 function App() {
   // STATES
@@ -20,6 +22,9 @@ function App() {
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
+  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+  const [mapZoom, setMapZoom] = useState(2);
+  const [mapCountries, setMapCountries] = useState([]);
 
   // HOOKS && CONTEXTS
   useEffect(() => {
@@ -34,6 +39,7 @@ function App() {
           const sortTedData = sortData(data);
           setTableData(sortTedData);
           setCountries(countriesList);
+          setMapCountries(data);
         });
     };
     getCountriesData();
@@ -58,6 +64,8 @@ function App() {
       .then((data) => {
         setCountry(countryCode);
         setCountryInfo(data);
+        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapZoom(4);
       });
   };
 
@@ -99,7 +107,7 @@ function App() {
             cases={countryInfo.todayDeaths}
           />
         </div>
-        <Map />
+        <Map zoom={mapZoom} center={mapCenter} countries={mapCountries} />
       </div>
 
       <Card className="app__right">
