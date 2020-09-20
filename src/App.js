@@ -9,7 +9,7 @@ import {
 import InfoBox from "./InfoBox";
 import Map from "./Map";
 import Table from "./Table";
-import { sortData } from "./utils";
+import { prettyPrintStat, sortData } from "./utils";
 import Graph from "./Graph";
 
 // STATICS
@@ -93,18 +93,18 @@ function App() {
         <div className="app__stats">
           <InfoBox
             title="Coronavirus Cases"
-            total={countryInfo.cases}
-            cases={countryInfo.todayCases}
+            total={prettyPrintStat(countryInfo.cases)}
+            cases={prettyPrintStat(countryInfo.todayCases)}
           />
           <InfoBox
             title="Recovered"
-            total={countryInfo.recovered}
-            cases={countryInfo.todayRecovered}
+            total={prettyPrintStat(countryInfo.recovered)}
+            cases={prettyPrintStat(countryInfo.todayRecovered)}
           />
           <InfoBox
             title="Deaths"
-            total={countryInfo.deaths}
-            cases={countryInfo.todayDeaths}
+            total={prettyPrintStat(countryInfo.deaths)}
+            cases={prettyPrintStat(countryInfo.todayDeaths)}
           />
         </div>
         <Map zoom={mapZoom} center={mapCenter} countries={mapCountries} />
