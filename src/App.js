@@ -11,6 +11,8 @@ import Map from "./Map";
 import Table from "./Table";
 import { prettyPrintStat, sortData } from "./utils";
 import Graph from "./Graph";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 // STATICS
 import "./App.css";
@@ -26,6 +28,7 @@ function App() {
   const [mapZoom, setMapZoom] = useState(2);
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");
+  const [darkMode, setDarkMode] = useState(true);
 
   // HOOKS && CONTEXTS
   useEffect(() => {
@@ -71,10 +74,28 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div
+      className="app"
+      style={
+        darkMode
+          ? { filter: "invert(1) hue-rotate(-175deg)" }
+          : { filter: "none" }
+      }
+    >
       <div className="app__left">
         <div className="app__header">
           <h1>COVID-19 TRACKER</h1>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={darkMode}
+                onChange={() => setDarkMode(!darkMode)}
+                inputProps={{ "aria-label": "secondary checkbox" }}
+              />
+            }
+            label="Toggle Dark Mode"
+            labelPlacement="end"
+          />
           <FormControl className="app__dropdown">
             <Select
               variant="outlined"
